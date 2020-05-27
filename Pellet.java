@@ -3,14 +3,18 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.*;
-public class Pellet {
 
+import javax.swing.JComponent;
+public class Pellet extends JComponent
+{
 	private Ellipse2D.Double pellet = new Ellipse2D.Double(0,0,14,14);
+	
 	public Pellet(int x, int y) 
 	{
 		this.setSize(new Dimension(15,15));
 		this.setLocation(x,y);
 	}
+	
 	public void paintComponent(Graphics g)
 	{
 		Graphics2D g2 = (Graphics2D) g;
@@ -20,4 +24,6 @@ public class Pellet {
 		g2.setColor(Color.WHITE);
 		g2.draw(pellet);
 	}
+	
+
 }
