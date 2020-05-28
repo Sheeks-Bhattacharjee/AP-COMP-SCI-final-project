@@ -58,7 +58,8 @@ public class Main extends JFrame implements ActionListener
 		
 		
 		JPanel panel2 = new JPanel();
-		panel2.setLayout(null);
+		panel2.setLayout(new GridBagLayout());
+		gbc.gridx = 0;
 		panel2.setPreferredSize(new Dimension(900,600));
 		pack();
 		
@@ -77,22 +78,18 @@ public class Main extends JFrame implements ActionListener
 				if(e.getKeyCode() == e.VK_D)
 					snek.setDx(1);
 			}
-
-			@Override
+			public void keyTyped(KeyEvent e) 
+			{
+			}
 			public void keyReleased(KeyEvent e) 
 			{
-				
 			}
-
-			@Override
-			public void keyTyped(KeyEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-	
 		});
 		
+		panel2.add(snek);
+		panel2.add(ball);
 		
+		main.add(panel2);
 		
 		c1.show(main, "first");
 		this.add(main);
@@ -106,16 +103,7 @@ public class Main extends JFrame implements ActionListener
 	}
 
 	public void actionPerformed(ActionEvent e) 
-	{
-		if(snek.getY() < 0)
-			snek.setDy(1);
-		if(snek.getX() < 0)
-			snek.setDy(-1);
-		if(ball.getY() + ball.getHeight() > this.getContentPane().getHeight())
-			snek.setDy(-1);
-		if(ball.getX() + ball.getWidth() > this.getContentPane().getWidth())
-			snek.setDy(1);
-		
+	{		
 	}
 
 }
