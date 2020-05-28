@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -17,32 +18,46 @@ import javax.swing.JPanel;
 
 public class Main extends JFrame implements ActionListener
 {
-	private Snake snek = new Snake((int)(Math.random()*900), (int)(Math.random()*600));
+	private Snake snek = new Snake(450,300);
+	private Rectangle borderSnek = new Rectangle (450,300);
 	private Pellet ball = new Pellet((int)(Math.random()*800), (int)(Math.random()*500));
-	
+	private Rectangle borderBall = new Rectangle (ball.getX(), ball.getY());
 	
 	
 	private JPanel main = new JPanel();
 	private Insets insets = new Insets(0,0,70,0);
 	public Main() 
 	{
-		setTitle("Snake: The Game");
-		setLayout(null);
-		setBounds(0,0,900,600);
-		setResizable(false);
+		this.setTitle("Snake: The Game");
+		this.setBounds(0,0,900,600);
+		this.setResizable(false);
 		
 		CardLayout c1 = new CardLayout();
 		main.setLayout(c1);
 		
-		JPanel panel1 = new JPanel();
+		//panel1 start
 		
+		JPanel panel1 = new JPanel();
+		panel1.setSize(new Dimension(900,600));
 		panel1.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
+		panel1.setBackground(new Color(0,0,77,255));
+		
 		JLabel inst = new JLabel("USE THE WASD KEYS TO MOVE THE SNAKE!");
-		inst.setFont(new Font("Times New Roman", Font.PLAIN, 50));
+		inst.setFont(new Font("SERIF", Font.BOLD, 15));
 		inst.setForeground(Color.WHITE);
+		inst.setSize(400,40);
 		panel1.add(inst,gbc);
+		
+		JLabel inst2 = new JLabel(" COLLECT ALL THE PELLETS!");
+		inst2.setFont(new Font("SERIF", Font.PLAIN, 15));
+		inst2.setForeground(Color.WHITE);
+		inst2.setSize(400,40);
+		gbc.gridy++;
+		panel1.add(inst2,gbc);
+		
 		JButton cont = new JButton("CLICK TO CONTINUE");
+		cont.setSize(250,100);
 		cont.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) 
@@ -51,26 +66,28 @@ public class Main extends JFrame implements ActionListener
 			}
 		});
 		gbc.gridx++;
+		gbc.gridy--;
+		gbc.gridwidth = 2;
 		panel1.add(cont,gbc);
-		panel1.setBackground(new Color(0,0,77,255));
-		panel1.setSize(new Dimension(900,600));
+		
 		main.add(panel1, "first");
 		
+		//panel2 start
 		
 		JPanel panel2 = new JPanel();
 		panel2.setLayout(new GridBagLayout());
-		gbc.gridx = 0;
 		panel2.setPreferredSize(new Dimension(900,600));
-		pack();
+//		pack();
 		
 		panel2.addKeyListener(new KeyListener()
 		{
-
-			@Override
 			public void keyPressed(KeyEvent e) 
 			{
 				if(e.getKeyCode() == e.VK_W)
+				{
 					snek.setDy(-1);
+					
+				}
 				if(e.getKeyCode() == e.VK_S)
 					snek.setDy(1);
 				if(e.getKeyCode() == e.VK_A)
@@ -103,7 +120,10 @@ public class Main extends JFrame implements ActionListener
 	}
 
 	public void actionPerformed(ActionEvent e) 
-	{		
+	{
+		snek.update();
+		borderSnek.setLocation(snek.getX(),snek.getY());
+		
+		
 	}
-
 }
