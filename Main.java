@@ -86,7 +86,6 @@ public class Main extends JFrame implements ActionListener
 				if(e.getKeyCode() == e.VK_W)
 				{
 					snek.setDy(-1);
-					
 				}
 				if(e.getKeyCode() == e.VK_S)
 					snek.setDy(1);
@@ -106,7 +105,7 @@ public class Main extends JFrame implements ActionListener
 		panel2.add(snek);
 		panel2.add(ball);
 		
-		main.add(panel2);
+		main.add(panel2, "second");
 		
 		c1.show(main, "first");
 		this.add(main);
@@ -123,7 +122,5 @@ public class Main extends JFrame implements ActionListener
 	{
 		snek.update();
 		borderSnek.setLocation(snek.getX(),snek.getY());
-		
-		
 	}
 }
