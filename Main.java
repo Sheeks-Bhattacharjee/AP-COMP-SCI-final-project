@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 public class Main extends JFrame implements ActionListener
 {
@@ -23,14 +24,14 @@ public class Main extends JFrame implements ActionListener
 	private Pellet ball = new Pellet((int)(Math.random()*800), (int)(Math.random()*500));
 	private Rectangle borderBall = new Rectangle (ball.getX(), ball.getY());
 	
-	
 	private JPanel main = new JPanel();
-	private Insets insets = new Insets(0,0,70,0);
 	public Main() 
 	{
 		this.setTitle("Snake: The Game");
 		this.setBounds(0,0,900,600);
 		this.setResizable(false);
+		this.setPreferredSize(new Dimension(900,600));
+		this.pack();
 		
 		CardLayout c1 = new CardLayout();
 		main.setLayout(c1);
@@ -73,20 +74,20 @@ public class Main extends JFrame implements ActionListener
 		main.add(panel1, "first");
 		
 		//panel2 start
+		Insets insets = new Insets(0,0,70,0);
 		
 		JPanel panel2 = new JPanel();
 		panel2.setLayout(new GridBagLayout());
-		panel2.setPreferredSize(new Dimension(900,600));
+		panel2.setSize(900,600);
+		
 //		pack();
 		
-		panel2.addKeyListener(new KeyListener()
+		this.addKeyListener(new KeyListener()
 		{
 			public void keyPressed(KeyEvent e) 
 			{
 				if(e.getKeyCode() == e.VK_W)
-				{
 					snek.setDy(-1);
-				}
 				if(e.getKeyCode() == e.VK_S)
 					snek.setDy(1);
 				if(e.getKeyCode() == e.VK_A)
@@ -109,6 +110,10 @@ public class Main extends JFrame implements ActionListener
 		
 		c1.show(main, "first");
 		this.add(main);
+		
+		Timer t1 = new Timer(10,this);
+		t1.start();
+		
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
@@ -122,5 +127,14 @@ public class Main extends JFrame implements ActionListener
 	{
 		snek.update();
 		borderSnek.setLocation(snek.getX(),snek.getY());
+		
+		if (borderSnek.intersects(borderBall))
+		{
+			ball.setLocation((int)(Math.random()*800), (int)(Math.random()*500));
+			borderBall.setLocation(ball.getX(), ball.getY());
+			
+			snek.setSize(snek.getWidth() + 2, snek.getHeight());
+		}
+		repaint();
 	}
 }
