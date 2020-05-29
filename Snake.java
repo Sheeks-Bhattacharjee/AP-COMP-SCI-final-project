@@ -3,16 +3,17 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.geom.Ellipse2D;
 
 import javax.swing.JComponent;
 
 public class Snake extends JComponent
 {
 	private int dx, dy;
-	private Rectangle snek =  new Rectangle(0,0,30,15);
+	private Ellipse2D.Double snek = new Ellipse2D.Double(0,0,14,14); 
 	public Snake(int x, int y) 
 	{
-		this.setSize(new Dimension(31,16));
+		this.setSize(new Dimension(15,15));
 		this.setLocation(x,y);
 	}
 	public void setDx(int dx)
@@ -29,15 +30,15 @@ public class Snake extends JComponent
 	{
 		this.setLocation(this.getX() + dx, this.getY() + dy);
 	}
-
+	
 	public void paintComponent(Graphics g)
 	{
 		Graphics2D g2 = (Graphics2D) g;
 		
-		g2.setColor(Color.BLUE);
+		g2.setColor(Color.BLACK);				//new Color(210,255,53,255));
 		g2.fill(snek);
 		
-		g2.setColor(Color.BLUE);
+		g2.setColor(Color.BLACK);
 		g2.draw(snek);
 	}
 }
